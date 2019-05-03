@@ -1,0 +1,45 @@
+sudo: required
+dist: trusty
+
+stages:
+  - test
+  - deploy
+
+language: node_js
+node_js: 8
+
+cache:
+  directories:
+    - $HOME/haxe
+
+os:
+  - linux
+  # - osx
+
+env:
+  - HAXE_VERSION=3.4.7
+  # - HAXE_VERSION=latest
+  - HAXE_VERSION=nightly
+  
+install:
+  - npm i -g lix
+  - lix install haxe $HAXE_VERSION
+  - lix download
+  
+script:
+  - lix run travix js
+
+jobs:
+  include:
+    # - stage: test # should uncomment this when there is no matrix above (e.g. only one os, one env, etc)
+    - stage: deploy
+      os: linux
+      env:
+        - secure: "NeV4VkujOA5pFqdUaej/XqOdlq+xzaXXKL7ZD0+CuJnvJbJVA5l8f4giFF/YQuKjiwfbY972Im1rCH2yC5G/JtYFjnb91ThspxVSGPL5p/a41hXi82q6KFnKjXjCmvPtKhLXyt5kZcTe9rCUdE2SRCdhUh88PNmVO2fNCFowhUFMXhDvEVARGc1cetkqzxm+00PbVUoLgve8HX/HkielHHU4ffpI3NJc+UvPlmqFVPT7tQ2icUqXM0ZsZZiq8zY27Sn1UPknqakrN64RHPT0areRBE0TvK3RMo4qQIlWnEPsZe8FGy/BrwU/eSWHk+4m2W3ABObBUeQWKcrteXyiUUMTb7Jl2bwe8OkiYXNRBIyyQI3allpqWPgpOz3QvfflRBEUCgqDteSRty24p1Vs8v2+v2y9zFP30T8TwErlMBolVBDQDJHkRZtOqBCHNtS1PLG2wS/nP2V3FY+IjQGz56hCPS6Dzp5iUmAHdB1ptOMpK5vsyztNpDB0oLN5vcCCZ6SL3a9Cqnzdqtd9iAL6ifdRRQrw1PNYM9apPuWwvxsJ3HNkljxSj80QpfXOQZlLZ6yd5UCK1pVKNNHDHiyhcBETmjk+TzXnu0QdHvgFLsak81HLKchuLICEiAzudr6HzaQiwlI/lDAVy3Lsfq3TG5yaSED09tCJ+O9onAVOrzw="
+      install:
+        - npm i -g lix
+        - lix download
+      script: skip
+      after_success:
+        - lix run travix install
+        - lix run travix release

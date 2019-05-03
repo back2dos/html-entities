@@ -1,0 +1,10 @@
+{
+  "name": "@haxelib/html-entities",
+  "scripts": {
+    "postinstall": "lix download",
+    "test": "lix run travix node"
+  },
+  "dependencies": {
+    "lix": "=15.3.6"
+  }
+}

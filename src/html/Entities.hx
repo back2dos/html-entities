@@ -1,0 +1,5 @@
+package html;
+
+class Entities {
+  
+}
