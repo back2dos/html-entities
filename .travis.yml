@@ -28,6 +28,10 @@ install:
   
 script:
   - lix run travix js
+  - lix run travix node
+  - lix run travix php
+  - lix run travix python
+  - lix run travix interp
 
 jobs:
   include:

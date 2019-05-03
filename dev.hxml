@@ -1,3 +1,6 @@
 tests.hxml
 -lib travix
 -lib html-entities
+-lib hxnodejs
+-js out.js
+--no-output

@@ -2,6 +2,7 @@
   "name": "@haxelib/html-entities",
   "scripts": {
     "postinstall": "lix download",
+    "generate": "haxe -cp gen -main Downloader -lib hxnodejs -js bin/gen.js && node bin/gen.js",
     "test": "lix run travix node"
   },
   "dependencies": {
